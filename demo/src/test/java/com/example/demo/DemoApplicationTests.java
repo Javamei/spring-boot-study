@@ -1,9 +1,11 @@
 package com.example.demo;
 
+import com.example.demo.web.BlogProperties;
 import com.example.demo.web.HelloController;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -21,6 +23,9 @@ public class DemoApplicationTests {
 
 	private MockMvc mockMvc;
 
+	@Autowired
+	private BlogProperties blogProperties;
+
 	@Before
 	public void setUp() {
 		mockMvc = MockMvcBuilders.standaloneSetup(new HelloController()).build();
@@ -33,6 +38,17 @@ public class DemoApplicationTests {
 				.andExpect(status().isOk())
 				.andExpect(content().string(equalTo("hello,meikun!")));
 	}
+
+	@Test
+	public void testProperties(){
+		String name = blogProperties.getName();
+		String title = blogProperties.getTitle();
+		String des = blogProperties.getDes();
+		System.out.println(name);
+		System.out.println(title);
+		System.out.println(des);
+	}
+
 
 	@Test
 	public void contextLoads() {
